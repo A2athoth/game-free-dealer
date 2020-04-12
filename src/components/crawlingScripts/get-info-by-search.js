@@ -1,8 +1,7 @@
 // 해야할거. : 검색결과 없거나, 오류, 언어 없는경우 등 체크
 
-const _target = "gta san";
-const _lang = "koreana";
-let _langQp;
+const _target = "rocket league";
+let _lang = "";
 
 let _searchKey = _target.replace(/\s/gi, "+");  // 정규표현식 공백을 +로 바꿈
 
@@ -30,12 +29,6 @@ puppeteer.launch({
     const _firstResult = await page.waitFor( "div#search_resultsRows > a:first-child" );
     const _resultUrl = await page.evaluate( e => e.getAttribute("href"), _firstResult );
 
-    if (_resultUrl.indexOf("?") === -1) {
-        _langQp = "?l="+_lang;  // query param이 없음
-    } else {
-        _langQp = "&l="+_lang;  // 이미 query param이 존재
-    }
-
     await page.goto( _resultUrl, { waitUntil : "networkidle2" } );
 
     // 나이 체크하는 페이지 도달시 발동
@@ -46,7 +39,11 @@ puppeteer.launch({
     }
 
     await delay(1000);
-    await page.goto(_resultUrl+_langQp, { waitUntil : "networkidle2" } );      // 원래 query param은 ?로 시작이나 여기 결과값선 왠지 링크에 이미 query param이 들어가 있었다. 그래서 &로 대체
+    // 원래 query param은 ?로 시작이나 여기 결과값선 왠지 링크에 이미 query param이 들어가 있었다. 그래서 &로 대체
+    if( _lang !== "" ) {
+        _lang = "&l="+_lang;
+        await page.goto( _resultUrl+_lang, { waitUntil : "networkidle2" } );
+    }
     await delay(1000);
 
     const title = await page.waitFor( "div.apphub_AppName" );

@@ -46,7 +46,9 @@ puppeteer.launch({
     }
 
     await delay(500);
-    await page.goto( _target+_langQp, { waitUntil : "networkidle2" } );
+    if( _langQp !== "?l=" && "&l=" ) {
+        await page.goto( _target+_langQp, { waitUntil : "networkidle2" } );
+    }
     await delay(1000);
 
     const title = await page.waitFor( "div.apphub_AppName" );

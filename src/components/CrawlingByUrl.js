@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Crawling extends Component {
+class CrawlingByUrl extends Component {
     static defaultProps = {
         name: 'CrawlingByUrl'
     }
@@ -14,4 +14,4 @@ class Crawling extends Component {
     }
 }
 
-export default Crawling;
+export default CrawlingByUrl;

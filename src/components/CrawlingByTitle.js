@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 
-class Crawling extends Component {
+class CrawlingByTitle extends Component {
     static defaultProps = {
         name: 'CrawlingByTitle'
+    }
+
+    componentDidMount() {
+        const { location, history } = this.props;
+        if(location.state === undefined) {
+            history.push("/");
+        }
     }
 
     render() {
@@ -14,4 +21,4 @@ class Crawling extends Component {
     }
 }
 
-export default Crawling;
+export default CrawlingByTitle;

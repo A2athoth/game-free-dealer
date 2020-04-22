@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class Crawling extends Component {
     static defaultProps = {
-        name: '기본이름'
+        name: 'Home'
     }
 
     render() {
